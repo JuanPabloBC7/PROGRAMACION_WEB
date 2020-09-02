@@ -1,1 +1,4 @@
 # PROGRAMACION_WEB
+
+######EJECTUAR PROYECTO
+__> ng serve__
