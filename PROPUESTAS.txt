@@ -1,0 +1,29 @@
+BACK END
+NODE JS
+DENO
+
+FRONT END
+ANGULAR
+https://www.youtube.com/watch?v=Zp0BZOfSAZY
+
+EXTRAS
+TECNOLOGIAS 
+APLICAR 
+TOKENS 
+
+build de produccion 
+
+buscar una nube
+
+
+DOCUMENTACION 
+BACK END
+
+swagger.io
+
+HASTA QUE FINALICE EL PROYECTO
+
+https://flutter.dev/?gclid=EAIaIQobChMIibOht4Kr6wIVGmKGCh2tXgr9EAAYASAAEgISyfD_BwE&gclsrc=aw.ds
+
+freecodecamp.org 
+certificados
