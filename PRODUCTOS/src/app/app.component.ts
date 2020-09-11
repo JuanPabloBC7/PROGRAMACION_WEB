@@ -12,7 +12,9 @@ export class AppComponent {
   productoArreglo: Class_Producto[] = [
     { ID: 1, Nombre: "Sentry", Descripcion: "Tabletas", Laboratorio: "BAYER", Origen: "Extranjero", Fecha_Vencimiento: "06/06/2020", Vigente: true, Precio: 25 },
     { ID: 2, Nombre: "Klein", Descripcion: "Gotas", Laboratorio: "BAYER", Origen: "Nacional", Fecha_Vencimiento: "06/09/2020", Vigente: true, Precio: 50 },
-    { ID: 1, Nombre: "Sentry", Descripcion: "Tabletas", Laboratorio: "BAYER", Origen: "Extranjero", Fecha_Vencimiento: "06/06/2020", Vigente: true, Precio: 25 }
+    { ID: 3, Nombre: "Sentry", Descripcion: "Tabletas", Laboratorio: "BAYER", Origen: "Extranjero", Fecha_Vencimiento: "06/06/2020", Vigente: true, Precio: 25 },
+    { ID: 4, Nombre: "Aspirina", Descripcion: "Pastillas", Laboratorio: "BAYER", Origen: "Extranjero", Fecha_Vencimiento: "06/06/2020", Vigente: true, Precio: 15 },
+    { ID: 5, Nombre: "NyQuil Children", Descripcion: "Jarabe", Laboratorio: "VICKS", Origen: "Nacional", Fecha_Vencimiento: "06/06/2020", Vigente: true, Precio: 20 }
   ];
 
   selectedProducto: Class_Producto = new Class_Producto();
