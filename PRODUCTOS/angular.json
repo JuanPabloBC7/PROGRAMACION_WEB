@@ -125,6 +125,6 @@
   },
   "defaultProject": "PRODUCTOS",
   "cli": {
-    "analytics": false
+    "analytics": "df722b2b-86a3-43ed-8d29-3422044308b5"
   }
 }
