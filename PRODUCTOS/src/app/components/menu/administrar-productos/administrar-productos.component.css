@@ -1,6 +1,5 @@
 table {
-  width: 90%;
-  margin: auto;
+  width: 100%;
 }
 
 .mat-form-field {
@@ -9,10 +8,19 @@ table {
 }
 
 .mat-paginator {
-  width: 90%;
-  margin: auto;
+  width: 100%;
 }
 
 td, th {
   width: 25%;
+}
+
+.mat-elevation-z8{
+  width: 95%;
+  margin: auto;
+}
+
+.mat-table{
+  width: 100%;
+  margin: 0%;
 }
