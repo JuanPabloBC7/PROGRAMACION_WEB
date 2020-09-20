@@ -4,6 +4,65 @@ import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 
+@Component({
+  selector: 'app-administrar-productos',
+  templateUrl: './administrar-productos.component.html',
+  styleUrls: ['./administrar-productos.component.css']
+})
+export class AdministrarProductosComponent implements OnInit {
+  displayedColumns: string[] = ['ColumnaIDFE', 'ColumnaNombreFE', 'ColumnaTipoFE', 'ColumnaOrigenFE', 'ColumnaPrecioFE', 'ColumnaAccionFE'];
+  dataSource = new MatTableDataSource<ProductosObject>(ElementosTabla);
+
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
+
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+  }
+
+  constructor(private router: Router) { }
+
+  ngOnInit(): void {
+  }
+
+  NavegarHaciaSalir(){
+    this.router.navigate(['/Principal'])
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    // if (this.dataSource.paginator) {
+    //   this.dataSource.paginator.firstPage();
+    // }
+  }
+  
+
+  // selectedProducto: ProductosObject = new ProductosObject();
+
+  // btn_AgregarOEditar_Click(){
+  //   if(this.selectedProducto.ID === 0){
+  //     this.selectedProducto.ID = this.dataSource.length + 1;
+  //     this.dataSource.push(this.selectedProducto);
+  //   }    
+  //   this.selectedProducto = new ProductosObject();
+  // }
+
+  // tbl_Editar_Click(Producto: ProductosObject){
+  //   this.selectedProducto = Producto;
+  // }
+
+  // btn_Eliminar_Click(){
+  //   if(confirm('Seguro de querer eliminarlo?')){
+  //     this.dataSource = this.dataSource.filter(X => X != this.dataSource);
+  //     this.selectedProducto = new ProductosObject();
+  //   }
+  // }
+}
+
+
 export interface ProductosObject {
   ID: number;
   ColumnaNombre: string;
@@ -34,28 +93,3 @@ const ElementosTabla: ProductosObject[] = [
   { ID: 19, ColumnaNombre: 'PENICILINA', ColumnaTipo: 'JARABE', ColumnaOrigen: 'ESTADOS UNIDOS', ColumnaPrecio: '49.88' },
   { ID: 20, ColumnaNombre: 'PENICILAMINA', ColumnaTipo: 'INYECTADA', ColumnaOrigen: 'PORTUGAL', ColumnaPrecio: '15.40' },
 ];
-
-@Component({
-  selector: 'app-administrar-productos',
-  templateUrl: './administrar-productos.component.html',
-  styleUrls: ['./administrar-productos.component.css']
-})
-export class AdministrarProductosComponent implements OnInit {
-  displayedColumns: string[] = ['ColumnaIDFE', 'ColumnaNombreFE', 'ColumnaTipoFE', 'ColumnaOrigenFE', 'ColumnaPrecioFE'];
-  dataSource = new MatTableDataSource<ProductosObject>(ElementosTabla);
-
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-  }
-
-  constructor(private router: Router) { }
-
-  ngOnInit(): void {
-  }
-
-  NavegarHaciaSalir(){
-    this.router.navigate(['/Principal'])
-  }
-}
