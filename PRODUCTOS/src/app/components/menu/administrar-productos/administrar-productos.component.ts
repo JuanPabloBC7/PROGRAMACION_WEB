@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
+import {Producto} from '../../../models/producto'
 
 @Component({
   selector: 'app-administrar-productos',
@@ -11,7 +12,7 @@ import {MatTableDataSource} from '@angular/material/table';
 })
 export class AdministrarProductosComponent implements OnInit {
   displayedColumns: string[] = ['ColumnaIDFE', 'ColumnaNombreFE', 'ColumnaTipoFE', 'ColumnaOrigenFE', 'ColumnaPrecioFE', 'ColumnaAccionFE'];
-  dataSource = new MatTableDataSource<ProductosObject>(ElementosTabla);
+  dataSource = new MatTableDataSource<Producto>(ElementosTabla); //Producto: ../models/producto y ElementoTabla: Arreglo
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -40,19 +41,19 @@ export class AdministrarProductosComponent implements OnInit {
   }
   
 
-  // selectedProducto: ProductosObject = new ProductosObject();
+  selectedProducto: Producto = new Producto();
 
-  // btn_AgregarOEditar_Click(){
-  //   if(this.selectedProducto.ID === 0){
-  //     this.selectedProducto.ID = this.dataSource.length + 1;
-  //     this.dataSource.push(this.selectedProducto);
-  //   }    
-  //   this.selectedProducto = new ProductosObject();
-  // }
+  btn_AgregarProducto_Click(){
+    if(this.selectedProducto.ID === 0){
+      this.selectedProducto.ID = this.displayedColumns.length + 1;
+      // this.displayedColumns.push((this.selectedProducto));
+    }    
+    this.selectedProducto = new Producto();
+  }
 
-  // tbl_Editar_Click(Producto: ProductosObject){
-  //   this.selectedProducto = Producto;
-  // }
+  tbl_Editar_Click(Producto: Producto){
+    this.selectedProducto = Producto;
+  }
 
   // btn_Eliminar_Click(){
   //   if(confirm('Seguro de querer eliminarlo?')){
@@ -62,16 +63,7 @@ export class AdministrarProductosComponent implements OnInit {
   // }
 }
 
-
-export interface ProductosObject {
-  ID: number;
-  ColumnaNombre: string;
-  ColumnaTipo: string;
-  ColumnaOrigen: string;
-  ColumnaPrecio: string;
-}
-
-const ElementosTabla: ProductosObject[] = [
+const ElementosTabla: Producto[] = [
   { ID: 1, ColumnaNombre: 'ASPIRINA', ColumnaTipo: 'PASTILLA', ColumnaOrigen: 'ALEMANIA', ColumnaPrecio: '8.34' },
   { ID: 2, ColumnaNombre: 'OMEPRAZOL', ColumnaTipo: 'CAPSULA', ColumnaOrigen: 'FRANCIA', ColumnaPrecio: '49.66' },
   { ID: 3, ColumnaNombre: 'LEXOTIROXINA SODICA', ColumnaTipo: 'LIQUIDA', ColumnaOrigen: 'BRASIL', ColumnaPrecio: '16.26' },
