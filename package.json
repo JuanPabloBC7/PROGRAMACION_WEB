@@ -1,0 +1,24 @@
+{
+  "name": "PROGRAMACION_WEB",
+  "version": "1.0.0",
+  "description": "__> ng serve__",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon server/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JuanPabloBC7/PROGRAMACION_WEB.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JuanPabloBC7/PROGRAMACION_WEB/issues"
+  },
+  "homepage": "https://github.com/JuanPabloBC7/PROGRAMACION_WEB#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {}
+}
