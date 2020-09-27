@@ -42,7 +42,7 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatTreeModule} from '@angular/material/tree';
 import {OverlayModule} from '@angular/cdk/overlay';
-
+import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 const MaterialComponents = [
   A11yModule,
   ClipboardModule,
@@ -88,6 +88,7 @@ const MaterialComponents = [
   OverlayModule,
   PortalModule,
   ScrollingModule,
+  ReactiveFormsModule,
 ];
 
 @NgModule({

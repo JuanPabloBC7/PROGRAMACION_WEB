@@ -1,0 +1,30 @@
+.conteiner-login {
+    padding-top: 11%;
+}
+
+.card {
+    width: 21.4%;
+    margin: auto;
+}
+
+.mat-card-header {
+    justify-content: center;
+}
+
+.flex-column {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+}
+    
+.flex-row {
+    width: 50%;
+    padding-left: 0%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+}
