@@ -1,0 +1,208 @@
+show dbs
+
+use FARMACIA
+
+db.createUser({
+    user: 'jpbalan@correo.url.edu.gt', pwd: 'jpbalan', roles: ['readWrite', 'dbAdmin']
+});
+
+db.USUARIO.insert({USUARIO: 'jpbalan@correo.url.edu.gt', CONTRASENA: 'jpbalan'});
+
+db.USUARIO.find();
+
+db.USUARIO.insert([
+    {USUARIO: 'savillatoro@correo.url.edu.gt', CONTRASENA: 'savillatoro'},
+    {USUARIO: 'samolina@correo.url.edu.gt', CONTRASENA: 'samolina'},
+    {USUARIO: 'cjardon@correo.url.edu.gt', CONTRASENA: 'cjardon'}
+]);
+
+/* BUSQUEDA DE DATOS INDIVIDUALES POR PROPIEDAD */
+db.USUARIO.find({USUARIO: 'jpbalan@correo.url.edu.gt'});
+db.USUARIO.find({_id: ObjectId("5f7144df6e0b77ae87420efe")});
+
+/* ACTUALIZAR DATOS */
+db.USUARIO.update(
+    {CONTRASENA: 'samolina'},
+    {
+        USUARIO: 'smolina@correo.url.edu.gt', 
+        CONTRASENA: 'smolina'
+    }
+)
+
+/* MOSTRAR DATOS MAS BONITO EN CONSOLA */
+db.USUARIO.find().pretty()
+
+
+db.PRODUCTO.insert([
+  { NOMBRE: 'ASPIRINA',             TIPO: 'PASTILLA',   ORIGEN: 'ALEMANIA',             PRECIO: '8.34' },
+  { NOMBRE: 'OMEPRAZOL',            TIPO: 'CAPSULA',    ORIGEN: 'FRANCIA',              PRECIO: '49.66' },
+  { NOMBRE: 'LEXOTIROXINA SODICA',  TIPO: 'LIQUIDA',    ORIGEN: 'BRASIL',               PRECIO: '16.26' },
+  { NOMBRE: 'RAMIPRIL',             TIPO: 'JARABE',     ORIGEN: 'ITALIA',               PRECIO: '43.13' },
+  { NOMBRE: 'WARFARINA SODICA',     TIPO: 'INYECTADA',  ORIGEN: 'COSTA RICA',           PRECIO: '74.86' },
+  { NOMBRE: 'SALBUTAMOL',           TIPO: 'PASTILLA',   ORIGEN: 'ARGENTINA',            PRECIO: '42.38' },
+  { NOMBRE: 'PARACETAMOL',          TIPO: 'CAPSULA',    ORIGEN: 'GUATEMALA',            PRECIO: '81.42' },
+  { NOMBRE: 'BENDROFLUMETIAZIDA',   TIPO: 'LIQUIDA',    ORIGEN: 'BELGICA',              PRECIO: '89.95' },
+  { NOMBRE: 'PRAZICUANTEL',         TIPO: 'JARABE',     ORIGEN: 'CANADA',               PRECIO: '40.32' },
+  { NOMBRE: 'AMPICILINA',           TIPO: 'INYECTADA',  ORIGEN: 'CHILE',                PRECIO: '7.29' },
+  { NOMBRE: 'MORFINA',              TIPO: 'PASTILLA',   ORIGEN: 'COLOMBIA',             PRECIO: '8.56' },
+  { NOMBRE: 'PIRANTEL',             TIPO: 'CAPSULA',    ORIGEN: 'REPUBLICA DOMINICANA', PRECIO: '65.41' },
+  { NOMBRE: 'PROMETAZINA',          TIPO: 'LIQUIDA',    ORIGEN: 'CHINA',                PRECIO: '73.68' },
+  { NOMBRE: 'IBOPRUFENO',           TIPO: 'JARABE',     ORIGEN: 'JAPON',                PRECIO: '43.74' },
+  { NOMBRE: 'DEXAMETASONA',         TIPO: 'INYECTADA',  ORIGEN: 'EL SALVADOR',          PRECIO: '83.39' },
+  { NOMBRE: 'EPINEFRINA',           TIPO: 'PASTILLA',   ORIGEN: 'ESPAÑA',               PRECIO: '98.29' },
+  { NOMBRE: 'NALOXONA',             TIPO: 'CAPSULA',    ORIGEN: 'HONDURAS',             PRECIO: '35.19' },
+  { NOMBRE: 'NITRITO DE SODIO',     TIPO: 'LIQUIDA',    ORIGEN: 'MEXICO',               PRECIO: '26.51' },
+  { NOMBRE: 'PENICILINA',           TIPO: 'JARABE',     ORIGEN: 'ESTADOS UNIDOS',       PRECIO: '49.88' },
+  { NOMBRE: 'PENICILAMINA',         TIPO: 'INYECTADA',  ORIGEN: 'PORTUGAL',             PRECIO: '15.40' }
+]);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+show dbs
+
+use mycustomers
+
+db.createUser({
+  user: 'fazt',
+  pwd: '123',
+  roles: ['readWrite', 'dbAdmin']
+});
+
+db.createCollection('customers')
+
+show collections
+
+db.customers.insert(
+  {
+    firstName: 'Isaac',
+    lastName: 'Asimov'
+  }
+)
+
+db.customers.find()
+  .pretty()
+
+db.customers.insert(
+  [
+    {firstName: 'Joe', lastName: 'MacMillan'},
+    {firstName: 'Elena', lastName: 'Soraya'},
+    {firstName: 'Isaac', lastName: 'delahaye'}
+  ]
+)
+
+db.customers.find();
+db.customers.find({firstName: 'Joe'}, {firstName: true, lastName:false});
+
+// replace or update data
+db.customers.update(
+  {firstName: 'Joe'}, //query
+  {
+    firstName: 'Joe',
+    lastName: 'MacMillan',
+    gender: 'male'
+  } // new data
+);
+
+// add a new date
+db.customers.update(
+  {firstName: 'Isaac'},
+  {
+    $set: {gender: 'male'}
+  }
+);
+
+db.customers.update(
+  {firstName: 'Isaac'},
+  {
+    $set: {age: 45}
+  }
+);
+db.customers.update(
+  {firstName: 'Isaac'},
+  {
+    $inc: {age: 5}
+  }
+);
+
+db.customers.update(
+  {firstName: 'Isaac'},
+  {
+    $unset:  {age: 1}
+  }
+)
+
+db.customers.update(
+  {firstName: 'Elena'} ,
+  {
+    firstName: 'Elena',
+    lastName: 'Soraya'
+  },
+  { upsert: true}
+)
+
+db.customers.update(
+  {firstName: 'Isaac'},
+  {
+    $rename: {"gender": "sex"}
+  }
+)
+
+db.customers.remove({firstName: "Isaac"})
+db.customers.remove({firstName: "Isaac"}, {justOne: true})
+
+db.customers.find({firstName: "Elena"});
+db.customers.find({$or: [{firstName: "Elena"}, {firstName: "Isaac"}]})
+db.customers.fid({gender: "male"})
+
+db.customers.find({age: {$lt: 40}})
+db.customers.find({age: {$gt: 40}})
+db.customers.find({age: {$gt: 30, $lt: 90}});
+
+db.customers.find({"address.city": "Boston"})
+
+db.customers.find({name: {$regex: 'ston'}});
+
+// sorting
+db.customers.find().sort({lastName: 1});
+db.customers.find().sort({lastName: -1});
+db.customers.find().count()
+db.customers.find({gender: "male"}).count()
+db.customers.find().limit(4)
+db.customers.find().limit(4).sort({lastName: -1})
+
+db.customers.find().forEach(function(doc) {
+  print("Customer Name" + doc.firstName);
+});
