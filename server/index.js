@@ -12,7 +12,7 @@ app.use(express.json());
 app.use(morgan('dev'));
 
 //Routes
-app.use('/api/producto', require('./routes/prductos.routes'));
+app.use('/api/producto', require('./routes/productos.routes'));
 
 //Strarting the server
 app.listen(app.get('port'), () => {    //metodo que levanta o escucha al server en el puerto 3000 e imprimir un mensaje en consola
