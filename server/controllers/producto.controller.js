@@ -3,7 +3,7 @@ const PRODUCTO_CTRL = {};
 
 PRODUCTO_CTRL.getProducto = async (req, res) => {
     const producto = await PRODUCTO.find();
-    res.json({"PRODUCTO": producto});
+    res.json(producto);
     //console.log({producto});
     //res.send('Hola mundo');
     // res.json({
@@ -17,7 +17,12 @@ PRODUCTO_CTRL.getUnProducto = async (req, res) => {
 }
 
 PRODUCTO_CTRL.createProducto = async (req, res) => {
-    const producto = new PRODUCTO(req.body);
+    const producto = new PRODUCTO({
+        NOMBRE: req.body.NOMBRE,
+        TIPO: req.body.TIPO,
+        ORIGEN: req.body.ORIGEN,
+        PRECIO: req.body.PRECIO
+    });
     await producto.save();
     //console.log(producto);
     res.json({
