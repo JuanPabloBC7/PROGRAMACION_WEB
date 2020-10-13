@@ -17,42 +17,42 @@
                 </mat-form-field>
             </section>
             <br>
-            <mat-accordion class="example-headers-align" multi>
+            <mat-accordion class="example-headers-align" multi *ngIf="!isEditing">
                 <mat-expansion-panel>
                     <mat-expansion-panel-header>
                         <mat-panel-title> Agregar </mat-panel-title>
                     </mat-expansion-panel-header>
                     <form #FormularioProducto="ngForm" (ngSubmit)="addProducto(FormularioProducto)">
                         <div class="flex-conteiner">
-                            <div class="flex-column">
-                                <div class="flex-row">
+                            <div class="flex-row">
+                                <div class="flex-column">
                                     <mat-form-field class="input_input">
                                         <mat-label>Nombre del Producto</mat-label>
                                         <input matInput name="NOMBRE" #NOMBRE="ngModel" [(ngModel)]="productoService.selectedProducto.NOMBRE">
                                     </mat-form-field>
                                 </div>
-                                <div class="flex-row">
+                                <div class="flex-column">
                                     <mat-form-field class="input_input">
                                         <mat-label>Tipo de Producto</mat-label>
                                         <input matInput name="TIPO" #TIPO="ngModel" [(ngModel)]="productoService.selectedProducto.TIPO">
                                     </mat-form-field>
                                 </div>
                             </div>
-                            <div class="flex-column">
-                                <div class="flex-row">
+                            <div class="flex-row">
+                                <div class="flex-column">
                                     <mat-form-field class="input_input">
                                         <mat-label>Origen del Producto</mat-label>
                                         <input matInput name="ORIGEN" #ORIGEN="ngModel" [(ngModel)]="productoService.selectedProducto.ORIGEN">
                                     </mat-form-field>
                                 </div>
-                                <div class="flex-row">
+                                <div class="flex-column">
                                     <mat-form-field class="input_input">
                                         <mat-label>Precio del Producto</mat-label>
                                         <input matInput name="PRECIO" #PRECIO="ngModel" [(ngModel)]="productoService.selectedProducto.PRECIO">
                                     </mat-form-field>
                                 </div>
                             </div>
-                            <!-- <div class="flex-column">
+                            <!-- <div class="flex-row">
                                 <div class="flex-row-textArea">
                                     <mat-form-field>
                                         <mat-label>Descripcion</mat-label>
@@ -69,8 +69,61 @@
                     </form>
                 </mat-expansion-panel>
             </mat-accordion>
+            <mat-accordion class="example-headers-align" multi *ngIf="isEditing">
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title> Editar </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <form #FormularioProducto2="ngForm" (ngSubmit)="updateProducto(FormularioProducto2)">
+                        <div class="flex-conteiner">
+                            <div class="flex-row">
+                                <div class="flex-column">
+                                    <mat-form-field class="input_input" style="visibility:hidden">
+                                        <mat-label>Id Producto</mat-label>
+                                        <input matInput name="_id" #_id="ngModel" [(ngModel)]="productoService.selectedProducto._id">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="flex-row">
+                                <div class="flex-column">
+                                    <mat-form-field class="input_input">
+                                        <mat-label>Nombre del Producto</mat-label>
+                                        <input matInput name="NOMBRE" #NOMBRE="ngModel" [(ngModel)]="productoService.selectedProducto.NOMBRE">
+                                    </mat-form-field>
+                                </div>
+                                <div class="flex-column">
+                                    <mat-form-field class="input_input">
+                                        <mat-label>Tipo de Producto</mat-label>
+                                        <input matInput name="TIPO" #TIPO="ngModel" [(ngModel)]="productoService.selectedProducto.TIPO">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="flex-row">
+                                <div class="flex-column">
+                                    <mat-form-field class="input_input">
+                                        <mat-label>Origen del Producto</mat-label>
+                                        <input matInput name="ORIGEN" #ORIGEN="ngModel" [(ngModel)]="productoService.selectedProducto.ORIGEN">
+                                    </mat-form-field>
+                                </div>
+                                <div class="flex-column">
+                                    <mat-form-field class="input_input">
+                                        <mat-label>Precio del Producto</mat-label>
+                                        <input matInput name="PRECIO" #PRECIO="ngModel" [(ngModel)]="productoService.selectedProducto.PRECIO">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </div>
+                        <section align="center"> 
+                            <div class="example-button-row">
+                                <button mat-raised-button >Actualizar</button>
+                                <button mat-raised-button (click)="isEditing = false">Cancelar</button>
+                            </div>
+                        </section>
+                    </form>
+                </mat-expansion-panel>
+            </mat-accordion>
             <br>
-            <div class="mat-elevation-z8">
+            <div class="mat-elevation-z8" *ngIf="!isEditing">
                 <table mat-table [dataSource]="productoService.TablaProducto" matSort>
                     <ng-container matColumnDef="ColumnaIDFE">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header> No. </th>
@@ -116,59 +169,6 @@
                 <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
             </div>
             <br>
-            <form #FormularioProducto2="ngForm" (ngSubmit)="updateProducto(FormularioProducto2)">
-                <div class="flex-conteiner">
-                    <div class="flex-column">
-                        <div class="flex-row">
-                            <mat-form-field class="input_input">
-                                <mat-label>Id Producto</mat-label>
-                                <input matInput name="_id" #_id="ngModel" [(ngModel)]="productoService.selectedProducto._id">
-                            </mat-form-field>
-                        </div>
-                    </div>
-                    <div class="flex-column">
-                        <div class="flex-row">
-                            <mat-form-field class="input_input">
-                                <mat-label>Nombre del Producto</mat-label>
-                                <input matInput name="NOMBRE" #NOMBRE="ngModel" [(ngModel)]="productoService.selectedProducto.NOMBRE">
-                            </mat-form-field>
-                        </div>
-                        <div class="flex-row">
-                            <mat-form-field class="input_input">
-                                <mat-label>Tipo de Producto</mat-label>
-                                <input matInput name="TIPO" #TIPO="ngModel" [(ngModel)]="productoService.selectedProducto.TIPO">
-                            </mat-form-field>
-                        </div>
-                    </div>
-                    <div class="flex-column">
-                        <div class="flex-row">
-                            <mat-form-field class="input_input">
-                                <mat-label>Origen del Producto</mat-label>
-                                <input matInput name="ORIGEN" #ORIGEN="ngModel" [(ngModel)]="productoService.selectedProducto.ORIGEN">
-                            </mat-form-field>
-                        </div>
-                        <div class="flex-row">
-                            <mat-form-field class="input_input">
-                                <mat-label>Precio del Producto</mat-label>
-                                <input matInput name="PRECIO" #PRECIO="ngModel" [(ngModel)]="productoService.selectedProducto.PRECIO">
-                            </mat-form-field>
-                        </div>
-                    </div>
-                    <!-- <div class="flex-column">
-                        <div class="flex-row-textArea">
-                            <mat-form-field>
-                                <mat-label>Descripcion</mat-label>
-                                <textarea matInput cdkTextareaAutosize cdkAutosizeMinRows="1" cdkAutosizeMaxRows="7"></textarea>
-                            </mat-form-field>
-                        </div>
-                    </div> -->
-                </div>
-                <section align="center"> 
-                    <div class="example-button-row" align="center">
-                        <button mat-raised-button >Agregar</button>
-                    </div>
-                </section>
-            </form>
         </mat-tab>
     </mat-tab-group>
 </app-menu>

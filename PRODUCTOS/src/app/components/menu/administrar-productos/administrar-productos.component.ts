@@ -19,6 +19,7 @@ export class AdministrarProductosComponent implements OnInit {
   selectedProducto: Producto = new Producto();
   displayedColumns: string[] = ['ColumnaIDFE', 'ColumnaNombreFE', 'ColumnaTipoFE', 'ColumnaOrigenFE', 'ColumnaPrecioFE', 'ColumnaAccionFE'];
   dataSource = new MatTableDataSource<Producto>(); //Producto: ../models/producto y ElementoTabla: Arreglo
+  isEditing = false;
   
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -64,6 +65,7 @@ export class AdministrarProductosComponent implements OnInit {
 
   selectProducto(producto: Producto) {
     this.productoService.selectedProducto = producto;
+    this.isEditing = true;
   }
 
   updateProducto(form: NgForm) {
@@ -76,6 +78,7 @@ export class AdministrarProductosComponent implements OnInit {
         });
         this.getProducto();
       });
+    this.isEditing = false;
   }
 
   deleteProducto(_id: string) {
