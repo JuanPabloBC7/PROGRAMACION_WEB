@@ -8,9 +8,9 @@
     <mat-tab-group mat-align-tabs="start">
         <mat-tab label="Administrar Productos">
             <br>
-            <section align="center">
+            <section align="center" *ngIf="!isEditing">
                 <mat-form-field>
-                    <mat-label >Firltrar</mat-label>
+                    <mat-label >Filtrar</mat-label>
                     <input matInput (keyup)="applyFilter($event)" placeholder="Informaci&oacute;n" #input
                            matTooltip="Puede ingresar cualquier valor de la tabla."
                            aria-label="Button that displays a tooltip when focused or hovered over">
@@ -70,7 +70,7 @@
                 </mat-expansion-panel>
             </mat-accordion>
             <mat-accordion class="example-headers-align" multi *ngIf="isEditing">
-                <mat-expansion-panel>
+                <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
                     <mat-expansion-panel-header>
                         <mat-panel-title> Editar </mat-panel-title>
                     </mat-expansion-panel-header>
@@ -114,9 +114,15 @@
                             </div>
                         </div>
                         <section align="center"> 
-                            <div class="example-button-row">
-                                <button mat-raised-button >Actualizar</button>
-                                <button mat-raised-button (click)="isEditing = false">Cancelar</button>
+                            <div class="flex-conteiner">
+                                <div class="flex-row">
+                                    <div class="flex-column-button-r">
+                                        <button mat-raised-button>Actualizar</button>
+                                    </div>
+                                    <div class="flex-column-button-l">
+                                        <button mat-raised-button (click)="isEditing = false">Cancelar</button>
+                                    </div>
+                                </div>
                             </div>
                         </section>
                     </form>

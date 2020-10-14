@@ -60,7 +60,7 @@ td, th {
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  flex-direction: row;
+  flex-direction: column;
 }
 
 .flex-row-textArea {
@@ -71,4 +71,24 @@ td, th {
   justify-content: center;
   align-items: center;
   flex-direction: row;
+}
+
+.flex-column-button-l {
+  width: 49%;
+  padding-left: 1%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: right;
+  align-items: right;
+  flex-direction: row;
+}
+
+.flex-column-button-r {
+  width: 50%;
+  padding-left: 0%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  align-items: flex-end;
+  flex-direction: column;
 }

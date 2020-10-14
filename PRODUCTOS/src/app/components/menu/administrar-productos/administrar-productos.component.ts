@@ -20,6 +20,7 @@ export class AdministrarProductosComponent implements OnInit {
   displayedColumns: string[] = ['ColumnaIDFE', 'ColumnaNombreFE', 'ColumnaTipoFE', 'ColumnaOrigenFE', 'ColumnaPrecioFE', 'ColumnaAccionFE'];
   dataSource = new MatTableDataSource<Producto>(); //Producto: ../models/producto y ElementoTabla: Arreglo
   isEditing = false;
+  step = 0;
   
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -105,5 +106,9 @@ export class AdministrarProductosComponent implements OnInit {
     // if (this.dataSource.paginator) {
     //   this.dataSource.paginator.firstPage();
     // }
+  }
+
+  setStep(index: number) {
+    this.step = index;
   }
 }
