@@ -16,7 +16,7 @@ export class AuthService {
   }
 
   logout(): any {
-    localStorage.removeItem('username');
+    localStorage.clear();
   }
 
   getUser(): any {
@@ -24,6 +24,10 @@ export class AuthService {
   }
 
   isLoggedIn(): boolean {
-    return this.getUser() !== null;
+    return (this.getUser() !== undefined)? true:false;
+  }
+
+  setUser(uid: string){
+    localStorage.setItem('username', uid);
   }
 }

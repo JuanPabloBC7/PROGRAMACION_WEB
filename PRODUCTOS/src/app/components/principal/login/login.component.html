@@ -13,7 +13,7 @@
                                     <form style="width: 61%">
                                         <mat-form-field class="example-full-width">
                                             <mat-label for="username">Usuario:</mat-label>
-                                            <input matInput [formControl]="emailFormControl" [errorStateMatcher]="matcher" placeholder="admin@example.com" name="username" #username>
+                                            <input matInput id="oficialUsuario" [formControl]="emailFormControl" [errorStateMatcher]="matcher" placeholder="admin@example.com" name="username" #username>
                                             <mat-hint>Errores instantaneos!</mat-hint>
                                             <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
                                                 Por favor ingrese un usuario valido.
@@ -29,7 +29,7 @@
                                 <div class="flex-column">
                                     <form [formGroup]="signin">
                                         <mat-form-field for="password">
-                                            <input matInput placeholder="Password" [type]="hide ? 'password' : 'text'" formControlName="password" required name="password" #password>
+                                            <input matInput id="oficialPassword" placeholder="Password" [type]="hide ? 'password' : 'text'" formControlName="password" required name="password" #password>
                                             <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                                             <mat-hint *ngIf="!passwordInput.value">Ingrese su contrase&ntilde;a</mat-hint>
                                         </mat-form-field>
@@ -38,7 +38,7 @@
                             </div>
                             <div class="flex-row">
                                 <div class="flex-column" style="padding-top: 15.5%">
-                                    <button mat-raised-button (click)="login(username.value, password.value)">Ingresar</button>
+                                    <button mat-raised-button (click)="inicioDeSesionEmailyContrasena($event)">Ingresar</button>
                                     {{mensajeError}}
                                 </div>
                             </div>
@@ -58,7 +58,7 @@
                             <div class="flex-column" style="padding-top: 15px; width: 61%">
                                 <mat-form-field>
                                     <mat-label>Nombre:</mat-label>
-                                    <input matInput placeholder="Andres Peres">
+                                    <input matInput id="nombreUsuario" placeholder="Andres Peres">
                                 </mat-form-field>
                             </div>
                         </div>
@@ -67,7 +67,7 @@
                                 <form style="width: 61%">
                                     <mat-form-field>
                                         <mat-label>Usuario:</mat-label>
-                                        <input matInput [formControl]="emailFormControl" [errorStateMatcher]="matcher" placeholder="admin@example.com">
+                                        <input matInput id="emailUsuario" [formControl]="emailFormControl" [errorStateMatcher]="matcher" placeholder="admin@example.com">
                                         <mat-hint>Errores instantaneos!</mat-hint>
                                         <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
                                             Por favor ingrese un usuario valido.
@@ -83,7 +83,7 @@
                             <div class="flex-column">
                                 <form [formGroup]="signin">
                                     <mat-form-field>
-                                        <input matInput placeholder="Password" [type]="hide ? 'password' : 'text'" formControlName="password" required>
+                                        <input matInput id="passwordUsuario" placeholder="Password" [type]="hide ? 'password' : 'text'" formControlName="password" required>
                                         <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                                         <mat-hint *ngIf="!passwordInput.value">Ingrese su contrase&ntilde;a</mat-hint>
                                     </mat-form-field>
@@ -92,7 +92,8 @@
                         </div>
                         <div class="flex-row">
                             <div class="flex-column" style="padding: 15px">
-                                <button mat-raised-button>Registrar</button>
+                                <button mat-raised-button (click)="CrearUsuarioEmailyContrasena($event)">Registrar</button>
+                                {{mensajeError2}}
                             </div>
                         </div>
                     </div>

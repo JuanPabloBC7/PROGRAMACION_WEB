@@ -9,6 +9,7 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 import {Producto} from '../../../models/producto'
 import {ProductoService} from '../../../services/services/producto.service'
 import { formatCurrency } from '@angular/common';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-administrar-productos',
@@ -31,10 +32,14 @@ export class AdministrarProductosComponent implements OnInit {
   }
 
   //constructor(private router: Router, private productoService: ProductoService) { }
-  constructor(public productoService: ProductoService, private router: Router, private _snackBar: MatSnackBar) { }
+  constructor(public productoService: ProductoService, private router: Router, private _snackBar: MatSnackBar, private authService: AuthService) { }
 
   ngOnInit(): void {
-    this.getProducto();
+    if (this.authService.isLoggedIn()) {
+      this.getProducto();
+    } else {
+      this.router.navigate(['/Login']);
+    }
   }
 
   addProducto(form: NgForm) {
