@@ -1,6 +1,11 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose
 
+/**
+ * @name MODEL_SERVER
+ * @description
+ *  Modelo de mi tabla principal.
+ */
 const PRODUCTO_SCHEMA = new Schema ({
     NOMBRE:      { type: String, required: true },
     TIPO:        { type: String, required: true },   
@@ -8,10 +13,4 @@ const PRODUCTO_SCHEMA = new Schema ({
     PRECIO:      { type: String, required: true }
 })
 
-// const USUARIO_SCHEMA = new Schema ({
-//     USUARIO:    { type: String, required: true },
-//     CONTRASENA: { type: String, required: true }
-// })
-
 module.exports = mongoose.model('PRODUCTO', PRODUCTO_SCHEMA);
-// module.exports = mongoose.model('USUARIO', USUARIO_SCHEMA);
