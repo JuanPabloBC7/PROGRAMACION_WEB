@@ -7,7 +7,7 @@ const { mongoose } = require('./database');
 // Settings
 app.set('port', process.env.PORT || 3000);  //creando una variable app "port" con el puerto que ofrezca el servido o el puerto 3000
 
-//Mideelewares
+//Middlewares
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(cors({origin: 'http://localhost:4200'}));
