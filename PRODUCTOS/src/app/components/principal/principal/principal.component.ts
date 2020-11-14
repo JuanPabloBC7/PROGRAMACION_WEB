@@ -13,6 +13,12 @@ export class PrincipalComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  /**
+   * @name NavegarHaciaLogin()
+   * @description
+   *  Metodo que se encarga de navegar a la pagina de login al presionar un boton
+   * @returns /login
+   */
   NavegarHaciaLogin(){
     this.router.navigate(['/Login'])
   }

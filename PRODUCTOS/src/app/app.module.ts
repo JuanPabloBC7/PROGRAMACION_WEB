@@ -1,8 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import {FormsModule} from '@angular/forms'
-import {HttpClientModule} from '@angular/common/http'
-
+import { FormsModule } from '@angular/forms'
+import { HttpClientModule } from '@angular/common/http'
+//Mis importaciones
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -11,6 +11,7 @@ import { PrincipalComponent } from './components/principal/principal/principal.c
 import { LoginComponent } from './components/principal/login/login.component';
 import { AdministrarProductosComponent } from './components/menu/administrar-productos/administrar-productos.component';
 import { MenuComponent } from './components/menu/menu/menu.component';
+
 @NgModule({
   declarations: [
     AppComponent,

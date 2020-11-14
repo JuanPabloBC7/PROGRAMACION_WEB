@@ -39,19 +39,46 @@ emailFormControl = new FormControl('', [
   ngOnInit(): void {
   }
 
+  /**
+   * @name logout()
+   * @description
+   *  Este metodo se encarga de cerrar sesión.
+   * @returns false 
+   */
   logout(): boolean {
     this.authService.logout();
     return false;
   }
 
+  /**
+   * @name NavegarHaciaAdministrarProductos()
+   * @description
+   *  Metodo que se encarga de navegar a la pagina de login al presionar un boton
+   * @returns /login
+   */
   NavegarHaciaAdministrarProductos(){
     this.router.navigate(['/AP'])
   }
 
+  /**
+   * @name ingresar(proveedor)
+   * @description
+   *  Ingresa a un proveedor nuevo.
+   * @param {String} proveedor
+   */
   ingresar(proveedor: string){
     console.log( proveedor )
   }
   
+  /**
+   * @name inicioDeSesionEmailyContrasena()
+   * @description
+   *  Este medtodo se encarga de ingresar a la aplicacion y validar las credenciales con Firebase
+   * @param {String} email correo del usuario
+   * @param {String} password contraseña del usuario
+   * @returns NavegarHaciaAdministrarProductos()
+   * @returns Error
+   */
   inicioDeSesionEmailyContrasena = (event) => {
     let email = (document.getElementById('oficialUsuario') as HTMLInputElement).value;
     let password = (document.getElementById('oficialPassword') as HTMLInputElement).value;
@@ -62,11 +89,21 @@ emailFormControl = new FormControl('', [
       this.authService.setUser(res.user.uid);
     }).catch(error => {
       //setError("Error signing in with password and email!");
-      this.mensajeError = 'Error1 ' + error;
-      console.error("Error signing in with password and email", error);
+      this.mensajeError = 'Error al intentar iniciar sesión ' + error;
+      console.error("Error al intentar iniciar sesión", error);
     });
   };
 
+  /**
+   * @name CrearUsuarioEmailyContrasena()
+   * @description
+   *  Este medtodo se encarga de crear un usuario y registrar sus datos en firebase
+   * @param {String} name nombre del usuario
+   * @param {String} email correo del usuario
+   * @param {String} password contraseña del usuario
+   * @returns generateUserDocument(user, {name})
+   * @returns Error
+   */
   CrearUsuarioEmailyContrasena = async (event) => {
     event.preventDefault();
     let name = (document.getElementById('nombreUsuario') as HTMLInputElement).value;
@@ -79,7 +116,7 @@ emailFormControl = new FormControl('', [
     }
     catch(error){
       //setError('Error al registrarse con correo y contraseña');
-      this.mensajeError2 = 'Error2 ' + error;
+      this.mensajeError2 = 'Error: No ha sido posible ingresar sus datos' + error;
     }
   };
 }

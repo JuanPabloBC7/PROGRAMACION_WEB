@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
-import { NgForm } from '@angular/forms';
+import { NgForm, Form } from '@angular/forms';
 import {MatSnackBar} from '@angular/material/snack-bar';
 
 import {Producto} from '../../../models/producto'
@@ -31,7 +31,6 @@ export class AdministrarProductosComponent implements OnInit {
     this.dataSource.sort = this.sort;
   }
 
-  //constructor(private router: Router, private productoService: ProductoService) { }
   constructor(public productoService: ProductoService, private router: Router, private _snackBar: MatSnackBar, private authService: AuthService) { }
 
   ngOnInit(): void {
@@ -42,6 +41,13 @@ export class AdministrarProductosComponent implements OnInit {
     }
   }
 
+  /**
+   * @name addProducto(form)
+   * @description
+   *  Agregar producto a la base de datos de mongoodb
+   * @param {Form} form 
+   * @returns Producto guardado
+   */
   addProducto(form: NgForm) {
     this.productoService.createProducto(form.value)
       .subscribe(res => {
@@ -54,6 +60,12 @@ export class AdministrarProductosComponent implements OnInit {
       });
   }
 
+  /**
+   * @name LimpiarForm(form)
+   * @description
+   *  Limpiar el formulario, es decir limpiar todos los imputs en la pantalla
+   * @param {Form} form
+   */
   LimpiarForm(form?: NgForm) {
     if (form){
       form.reset();
@@ -61,6 +73,12 @@ export class AdministrarProductosComponent implements OnInit {
     }
   }
 
+  /**
+   * @name getProducto()
+   * @description
+   *  Toma un producto y lo muestra en la pantalla si se desea detallar uno en especifico
+   * @requires Producto
+   */
   getProducto() {
     this.productoService.getProducto()
       .subscribe(res => {
@@ -69,11 +87,23 @@ export class AdministrarProductosComponent implements OnInit {
       });
   }
 
+  /**
+   * @name selectProducto(producto)
+   * @description
+   *  Muestra todos los productos que se encuentran en base de datos
+   * @param {Object} producto
+   */
   selectProducto(producto: Producto) {
     this.productoService.selectedProducto = producto;
     this.isEditing = true;
   }
 
+  /**
+   * @name updateProducto(form)
+   * @description
+   *  Actualiza un producto en especifico
+   * @param {Form} form 
+   */
   updateProducto(form: NgForm) {
     this.productoService.updateProducto(form.value)
       .subscribe(res => {
@@ -87,6 +117,14 @@ export class AdministrarProductosComponent implements OnInit {
     this.isEditing = false;
   }
 
+  /**
+   * @name deleteProducto(_id)
+   * @description
+   *  Eliminar un producto
+   * @param {String} _id
+   * @returns Producto eliminado
+   * @example deleteProducto(a53sd1f85e41asdf166a5e4fasd3f21)
+   */
   deleteProducto(_id: string) {
     if(confirm('Esta seguro que desea eliminar?')) {  
       this.productoService.deleteProducto(_id)
