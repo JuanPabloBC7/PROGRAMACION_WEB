@@ -4,7 +4,8 @@
   "description": "__> ng serve__",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon server/index.js"
+    "dev": "nodemon server/index.js",
+    "devFull": "nodemon server/indexFull.js"
   },
   "repository": {
     "type": "git",
@@ -21,9 +22,11 @@
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "mongoose": "^5.10.7",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "redis": "^3.0.2"
   },
   "devDependencies": {
+    "@types/node": "^14.14.8",
     "nodemon": "^2.0.4"
   }
 }

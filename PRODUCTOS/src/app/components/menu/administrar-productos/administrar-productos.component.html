@@ -159,9 +159,9 @@
                     <ng-container matColumnDef="ColumnaAccionFE">
                         <th mat-header-cell *matHeaderCellDef> ACCIONES </th>
                         <td mat-cell *matCellDef="let element" class="action-link"> 
-                            <a href="/AP"><mat-icon>description</mat-icon></a>
-                            <a (click)="selectProducto(element)"><mat-icon>edit</mat-icon></a>
-                            <a (click)="deleteProducto(element._id)"><mat-icon>delete</mat-icon></a>
+                            <!-- <a href="/AP"><mat-icon>description</mat-icon></a> -->
+                            <button mat-icon-button (click)="selectProducto(element)"><mat-icon>edit</mat-icon></button>
+                            <button mat-icon-button (click)="deleteProducto(element._id)"><mat-icon>delete</mat-icon></button>
                         </td>
                     </ng-container>
                     

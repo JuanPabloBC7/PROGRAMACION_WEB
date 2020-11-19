@@ -1,6 +1,9 @@
+const redis = require('redis');
 const PRODUCTO = require('../models/producto');
 const PRODUCTO_CTRL = {};
 
+// create and connect redis client to local instance.
+var client = redis.createClient(6379, '35.182.86.49');
 /**
  * @name GET_PRODUCTO
  * @description
@@ -11,9 +14,30 @@ const PRODUCTO_CTRL = {};
  *  PRODUCTO.find() se encarga de obtener todos los datos.
  */
 PRODUCTO_CTRL.getProducto = async (req, res) => {
-    const producto = await PRODUCTO.find();
-    res.json(producto);
     //console.log({producto});
+    try {
+        /*const contacts = await contactDao.getAll();*/
+        // key to store results in Redis store
+        const productosRedisKey = 'productosKey';
+        // Try fetching the result from Redis first in case we have it cached
+        return client.get(productosRedisKey, async (err, productos) => {
+            // If that key exists in Redis store
+            if (productos) {
+                //console.log("Encontro en REDIS");
+                return res.status(200).json(JSON.parse(productos));
+            }
+            else{
+    const producto = await PRODUCTO.find();
+                // Save the  API response in Redis store,  data expire time in 3600 seconds, it means one hour
+                client.setex(productosRedisKey, 30, JSON.stringify(producto));
+                return res.status(200).json(producto);
+            }
+        });
+    } catch (err) {
+        return res.status(400).json({
+            error: err.message,
+        });
+    }
 };
 
 /**

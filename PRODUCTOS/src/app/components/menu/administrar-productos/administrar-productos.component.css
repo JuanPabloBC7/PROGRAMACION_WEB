@@ -92,3 +92,8 @@ td, th {
   align-items: flex-end;
   flex-direction: column;
 }
+
+.mat-icon-button {
+  width: 25px !important;
+  color: #3f51b5;
+}

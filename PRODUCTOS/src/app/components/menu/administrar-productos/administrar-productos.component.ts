@@ -82,7 +82,7 @@ export class AdministrarProductosComponent implements OnInit {
   getProducto() {
     this.productoService.getProducto()
       .subscribe(res => {
-        this.productoService.TablaProducto = res as Producto[];
+        this.productoService.TablaProducto = res['data'];
         console.log(res);
       });
   }

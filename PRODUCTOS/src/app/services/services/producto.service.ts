@@ -18,7 +18,7 @@ export class ProductoService {
    */
   selectedProducto: Producto;
   TablaProducto: Producto[];
-  readonly URL_API = 'http://localhost:3000/api/producto';
+  readonly URL_API = 'https://h2kcca2yb6.execute-api.us-east-2.amazonaws.com/apiProductos/productos';
 
   constructor(private http: HttpClient) {
     this.selectedProducto = new Producto;
@@ -46,7 +46,11 @@ export class ProductoService {
    * @example getUnProducto("as6d5f4a89sc4as6er1fa89sd4asdfc2asdf")
    */
   getUnProducto(_id: string) {
-    return this.http.get(this.URL_API + `/${_id}`);
+    return this.http.patch(this.URL_API, 
+      {
+        "tipoMetodo": "GETuno",
+        "idProducto": `${_id}`
+      });
   }
 
   /* --- POST --- */
@@ -59,7 +63,11 @@ export class ProductoService {
    * @example createProducto(producto{NOMBRE, TIPO, ORIGEN, PRECIO})
    */
   createProducto(producto: Producto) {
-    return this.http.post(this.URL_API, producto);
+    return this.http.patch(this.URL_API,
+      { 
+        "tipoMetodo": "CREATE",
+        "Producto": producto
+    });
   }
 
   /* --- PUT --- */
@@ -72,7 +80,12 @@ export class ProductoService {
    * @example updateProducto(producto{NOMBRE, TIPO, ORIGEN, PRECIO})
    */
   updateProducto(producto: Producto) {
-    return this.http.put(this.URL_API + `/${producto._id}`, producto);
+    return this.http.patch(this.URL_API,
+      {
+        "tipoMetodo": "UPDATE",
+        "idProducto": `${producto._id}`,
+        "Producto": producto
+      });
   }
 
   /* --- PUT --- */
@@ -85,6 +98,10 @@ export class ProductoService {
    * @example deleteProducto(65asdf4a89s4df4a6s5df41981as1df1s56daf1)
    */
   deleteProducto(_id: string) {
-    return this.http.delete(this.URL_API + `/${_id}`);
+    return this.http.patch(this.URL_API, 
+      {
+        "tipoMetodo": "DELETE",
+        "idProducto": `${_id}`
+      });
   }
 }

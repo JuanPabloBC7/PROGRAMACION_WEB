@@ -1,34 +1,204 @@
-const express = require('express'); // Express para escritura de manejadores de peticiones con diferentes verbos HTTP en diferentes caminos URL (rutas).
-const morgan = require('morgan'); // Es un middleware para la captura de solicitudes HTTP para Node. js para su posterior registro y seguimiento.
-const cors = require('cors'); // Mecanismo que utiliza cabeceras HTTP adicionales para permitir que un user agent obtenga permiso para acceder a recursos seleccionados desde un servidor, en un origen distinto (dominio) al que pertenece.
-const app = express(); // Utilizacion de express por medio de la variable app
-const { mongoose } = require('./database');
+"use strict";
+const MongoClient = require('mongodb').MongoClient;
+const MONGODB_URI = 'mongodb+srv://JPBALAN:L%21977h7%25B%24Gk9du@cluster-productos.jhj3n.mongodb.net/FARMACIA?retryWrites=true&w=majority'; // or Atlas connection string
+var ObjectId = require('mongodb').ObjectID;
+let cachedDb = null;
 
-// Settings
-app.set('port', process.env.PORT || 3000);  // Creando una variable app "port" con el puerto que ofrezca el servido o el puerto 3000
+function connectToDatabase(uri) {
+    console.log('=> connect to database');
+    if (cachedDb) {
+        console.log('=> using cached database instance');
+        return Promise.resolve(cachedDb);
+    }
+    return MongoClient.connect(uri)
+        .then(db => {
+            cachedDb = db; //For mongo client before v3
+            cachedDb = db.db("FARMACIA"); //For mongo client v3,item is db i creted
+            return cachedDb;
+        });
+}
 
-//Middlewares npm run dev
-/** 
- * @name RUN_APP
- * @description
- *  Nombre que toma mi servicio para ejecutarse
- *  Para realizar esta accion dirigirse mi server/package.json y colocar dev en "dev": "nodemon server/index.js"
-*/
-app.use(morgan('dev'));
-app.use(express.json());
-app.use(cors({origin: 'http://localhost:4200'}));
+function getProducto(db) {
+    console.log('=> query database');
+    return db.collection('PRODUCTO').find({}).toArray()
+        .then((data) => {
+            return ({
+                statusCode: 200,
+                body: 'Todos los productos obtenidos correctamente',
+                data: data
+            });
+        })
+        .catch(err => {
+            console.log('=> an error occurred: ', err);
+            return {
+                statusCode: 500,
+                body: 'error al obtener todos los productos'
+            };
+        });
+}
+function getUnProducto(db, idProducto) {
+    console.log('=> query database');
+    return db.collection("PRODUCTO").find({ "_id": ObjectId(idProducto) }).toArray()
+        .then((data) => {
+            return ({
+                statusCode: 200,
+                body: 'Un producto obtenido correctamente ' + idProducto,
+                data: data
+            });
+        })
+        .catch(err => {
+            console.log('=> an error occurred: ', err);
+            return {
+                statusCode: 500,
+                body: 'error al obtener un producto'
+            };
+        });
+}
+function createProducto(db, Producto) {
+    console.log('=> query database');
+    return db.collection("PRODUCTO").insertOne(
+        {
+            "NOMBRE": Producto.NOMBRE, 
+            "TIPO": Producto.TIPO,
+            "ORIGEN": Producto.ORIGEN,
+            "PRECIO": Producto.PRECIO,
+        })
+        .then((data) => {
+            return ({
+                statusCode: 200,
+                body: 'Producto creado correctamente',
+                data: data
+            });
+        })
+        .catch(err => {
+            console.log('=> an error occurred: ', err);
+            return {
+                statusCode: 500,
+                body: 'error al obtener un producto'
+            };
+        });
+}
+function updateProducto(db, idProducto, Producto) {
+    console.log('=> query database');
+    const filter = {"_id": ObjectId(idProducto)}
+    const updateDocument = {
+                                $set: 
+                                {
+                                    "NOMBRE": Producto.NOMBRE, 
+                                    "TIPO": Producto.TIPO,
+                                    "ORIGEN": Producto.ORIGEN,
+                                    "PRECIO": Producto.PRECIO
+                                },
+                            };
+    return db.collection("PRODUCTO").updateOne(filter, updateDocument)
+        .then((data) => {
+            return ({
+                statusCode: 200,
+                body: 'Producto actualizado correctamente',
+                data: data
+            });
+        })
+        .catch(err => {
+            console.log('=> an error occurred: ', err);
+            return {
+                statusCode: 500,
+                body: 'error al obtener un producto'
+            };
+        });
+}
+function deleteProducto(db, idProducto)
+{
+  console.log('=> query database');
+  return db.collection('PRODUCTO').deleteOne(
+      { 
+          "_id": ObjectId(idProducto)
+      })
+      .then((data) => {
+          return ({
+                statusCode: 200,
+                body: 'Producto eliminado correctamente, eliminados ' + data.deletedCount,
+                data: data
+            });
+        })
+        .catch(err => {
+            console.log('=> an error occurred: ', err);
+            return {
+                statusCode: 500,
+                body: 'error al eliminar un producto'
+            };
+        });
+}
 
-//Routes
-app.use('/api/producto', require('./routes/productos.routes'));  // Ruta principal
-
-//Strarting the server
-/**
- * @name LISTEN_SERVER
- * @description 
- *  Metodo que levanta o escucha al server en el puerto 3000 o asignado e imprimir un mensaje en consola.
- * @param {String} port 
- *  Variable que contiene el puerto en donde se estara escuchando mi servicio.
- */
-app.listen(app.get('port'), () => {
-    console.log('Server on http://localhost:'+app.get('port')+'/')
-});
+module.exports.handler = (event, context, callback) => {
+    context.callbackWaitsForEmptyEventLoop = false;
+    console.log('event: ', event);
+    if (event.tipoMetodo == 'GET') {
+        connectToDatabase(MONGODB_URI)
+            .then(db => getProducto(db))
+            .then(result => {
+                console.log('=> returning result: ', result);
+                callback(null, result);
+            })
+            .catch(err => {
+                console.log('=> an error occurred: ', err);
+                callback(err);
+            });   
+    }
+    else if (event.tipoMetodo == 'GETuno')
+    {
+        connectToDatabase(MONGODB_URI)
+            .then(db => getUnProducto(db, event.idProducto))
+            .then(result => {
+                console.log('=> returning result: ', result);
+                callback(null, result);
+            })
+            .catch(err => {
+                console.log('=> an error occurred: ', err);
+                callback(err);
+            }); 
+    }
+    else if (event.tipoMetodo == 'CREATE')
+    {
+        connectToDatabase(MONGODB_URI)
+            .then(db => createProducto(db, event.Producto))
+            .then(result => {
+                console.log('=> returning result: ', result);
+                callback(null, result);
+            })
+            .catch(err => {
+                console.log('=> an error occurred: ', err);
+                callback(err);
+            }); 
+    }
+    else if (event.tipoMetodo == 'UPDATE')
+    {
+        connectToDatabase(MONGODB_URI)
+            .then(db => updateProducto(db, event.idProducto, event.Producto))
+            .then(result => {
+                console.log('=> returning result: ', result);
+                callback(null, result);
+            })
+            .catch(err => {
+                console.log('=> an error occurred: ', err);
+                callback(err);
+            }); 
+    }
+     else if (event.tipoMetodo == 'DELETE')
+    {
+        connectToDatabase(MONGODB_URI)
+            .then(db => deleteProducto(db, event.idProducto))
+            .then(result => {
+                console.log('=> returning result: ', result);
+                callback(null, result);
+            })
+            .catch(err => {
+                console.log('=> an error occurred: ', err);
+                callback(err);
+            }); 
+    }
+    else 
+    {
+        console.log('Error seleccionaste un metodo inexistente');
+        callback(null, 'Error seleccionaste un metodo inexistente');
+    }
+};
