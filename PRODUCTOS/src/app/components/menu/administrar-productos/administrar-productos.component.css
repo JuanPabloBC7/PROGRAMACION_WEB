@@ -97,3 +97,55 @@ td, th {
   width: 25px !important;
   color: #3f51b5;
 }
+
+.flex-row-special {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+}
+
+.flex-column-special {
+  width: 50%;
+  padding-left: 0%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+@media screen and (max-width: 800px) {
+  .mat-form-field {
+    width: 80%;
+  }
+
+  .flex-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  
+  .flex-column {
+    width: 100%;
+    padding-left: 0%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  .flex-column-button-l {
+    justify-content: center;
+    align-items: center;
+  }
+
+  .flex-column-button-r {
+    justify-content: center;
+    align-items: center;
+  }
+}

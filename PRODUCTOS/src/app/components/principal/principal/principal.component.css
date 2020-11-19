@@ -1,0 +1,28 @@
+.container {
+    padding-top: 3%;
+    width: 30%;
+    margin: auto;
+}
+
+.boton {
+    display: flex;
+    flex-wrap: wrap;
+    margin: auto;
+    justify-content: center;
+}
+
+.mat-card-image {
+    width: 50%;
+    display: flex;
+    flex-wrap: wrap;
+    margin: auto;
+}
+
+@media screen and (max-width: 800px) {
+    .container {
+      width: 90%;
+    }
+    .mat-card-image {
+        width: 50%;
+    }
+}
